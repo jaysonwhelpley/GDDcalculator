@@ -3,7 +3,7 @@ class RawInfo < ApplicationRecord
 
     require 'httparty'
 
-    # Other API possibility https://api.darksky.net/forecast/3741bd5bbf4003dc232b3e0ef979a4ca/40.12,-80.33?units=si
+    # Other API possibility https://api.darksky.net/forecast/APIKEY/40.12,-80.33?units=si
     # https://darksky.net/dev/docs#time-machine-request
 
     url = "http://api.worldweatheronline.com/premium/v1/past-weather.ashx?q=40.1250032,-80.33&date=#{s_date}&enddate=#{e_date}&tp=1&format=json&key=#{Rails.application.credentials.dig(:wwos_key)}"
