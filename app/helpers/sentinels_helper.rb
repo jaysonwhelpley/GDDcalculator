@@ -1,0 +1,2 @@
+module SentinelsHelper
+end

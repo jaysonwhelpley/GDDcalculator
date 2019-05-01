@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_01_142753) do
+ActiveRecord::Schema.define(version: 2019_05_01_143842) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
     t.date "the_date"
@@ -23,7 +26,21 @@ ActiveRecord::Schema.define(version: 2019_05_01_142753) do
   end
 
   create_table "raw_infos", force: :cascade do |t|
-    t.string "entry"
+    t.integer "info_type"
+    t.string "api_call"
+    t.jsonb "entry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sentinels", force: :cascade do |t|
+    t.string "title"
+    t.float "temp_lowest_f"
+    t.float "temp_lowest_c"
+    t.date "lowest_day"
+    t.float "target_c"
+    t.float "target_f"
+    t.float "gdd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,13 +58,9 @@ ActiveRecord::Schema.define(version: 2019_05_01_142753) do
   end
 
   create_table "weather_records", force: :cascade do |t|
-    t.float "temp_max_c"
-    t.float "temp_min_c"
-    t.float "temp_max_f"
-    t.float "temp_min_f"
     t.float "temp_f"
     t.float "temp_c"
-    t.integer "day_id"
+    t.bigint "day_id"
     t.integer "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
