@@ -1,0 +1,38 @@
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>Title</td>
+      <td>Tar °C</td>
+      <td>Tar °F</td>
+      <td>Tar GDD</td>
+      <td>Cur GDD</td>
+      <td>&check; Date</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sentinels.each do |s| %>
+      <tr>
+        <td><%= s.title %></td>
+        <td><%= s.target_c %></td>
+        <td><%= s.target_f %></td>
+        <td><%= s.target_gdd %></td>
+        <td><%= s.gdd %></td>
+        <td><%= s.target_day.the_date if s.target_day.present? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<%= simple_form_for(@sentinel) do |f| %>
+
+  <%= f.input :title %>
+  <%= f.input :target_c %>
+  <%= f.input :target_f %>
+  <%= f.input :target_gdd %>
+
+  <%= f.submit %>
+
+<% end %>

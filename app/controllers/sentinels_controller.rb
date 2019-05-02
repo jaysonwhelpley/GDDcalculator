@@ -25,11 +25,16 @@ class SentinelsController < ApplicationController
   # POST /sentinels.json
   def create
     @sentinel = Sentinel.new(sentinel_params)
+    @sentinel.lowest_day = Day.order("the_date DESC").where(temp_min_c: Day.minimum(:temp_min_c)).order("the_date DESC").first
+    @sentinel.temp_lowest_f = @sentinel.lowest_day.temp_min_f
+    @sentinel.temp_lowest_c = @sentinel.lowest_day.temp_min_c
+
+
 
     respond_to do |format|
       if @sentinel.save
         format.html { redirect_to @sentinel, notice: 'Sentinel was successfully created.' }
-        format.json { render :show, status: :created, location: @sentinel }
+        format.json { render "page#main" }
       else
         format.html { render :new }
         format.json { render json: @sentinel.errors, status: :unprocessable_entity }
@@ -69,6 +74,6 @@ class SentinelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sentinel_params
-      params.fetch(:sentinel, {})
+      params.require(:sentinel).permit(:title, :target_c, :target_f, :gdd)
     end
 end

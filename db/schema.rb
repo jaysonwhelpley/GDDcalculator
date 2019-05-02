@@ -35,14 +35,18 @@ ActiveRecord::Schema.define(version: 2019_05_01_143842) do
 
   create_table "sentinels", force: :cascade do |t|
     t.string "title"
+    t.float "gdd"
+    t.float "target_gdd"
     t.float "temp_lowest_f"
     t.float "temp_lowest_c"
-    t.date "lowest_day"
+    t.bigint "lowest_day_id"
     t.float "target_c"
     t.float "target_f"
-    t.float "gdd"
+    t.bigint "target_day_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lowest_day_id"], name: "index_sentinels_on_lowest_day_id"
+    t.index ["target_day_id"], name: "index_sentinels_on_target_day_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,4 +71,6 @@ ActiveRecord::Schema.define(version: 2019_05_01_143842) do
     t.index ["day_id"], name: "index_weather_records_on_day_id"
   end
 
+  add_foreign_key "sentinels", "days", column: "lowest_day_id"
+  add_foreign_key "sentinels", "days", column: "target_day_id"
 end
