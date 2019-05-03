@@ -10,5 +10,9 @@ class CreateWeatherRecords < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    add_index :weather_records, :temp_c
+    add_index :weather_records, :temp_f
+
   end
 end

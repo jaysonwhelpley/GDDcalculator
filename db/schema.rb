@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_05_01_143842) do
     t.jsonb "entry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["api_call"], name: "index_raw_infos_on_api_call"
+    t.index ["info_type"], name: "index_raw_infos_on_info_type"
   end
 
   create_table "sentinels", force: :cascade do |t|
@@ -69,6 +71,8 @@ ActiveRecord::Schema.define(version: 2019_05_01_143842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["day_id"], name: "index_weather_records_on_day_id"
+    t.index ["temp_c"], name: "index_weather_records_on_temp_c"
+    t.index ["temp_f"], name: "index_weather_records_on_temp_f"
   end
 
   add_foreign_key "sentinels", "days", column: "lowest_day_id"
